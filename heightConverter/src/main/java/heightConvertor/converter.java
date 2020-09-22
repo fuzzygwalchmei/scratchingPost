@@ -16,7 +16,7 @@ public class converter {
 		
 	}
 	
-	public int weight_imp(int pound, int stone) {
+	public int weight_imp(int stone, int pound) {
 		kg = (int) (((stone *14) + pound) * 2.2046226218);
 		return kg;
 	}
