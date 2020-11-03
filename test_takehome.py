@@ -1,5 +1,6 @@
 import pytest
 import takehome
+from numpy.testing import assert_array_equal
 # Takehome test file
 
 
@@ -14,7 +15,7 @@ import numpy as np
 def test_create_array_from_function():
     expected = np.array([[0, 1, 4, 9], [1, 0, 1, 4,], [4, 1, 0, 1],[9, 4, 1, 0]])
     actual = takehome.create_array_from_function(lambda i,j: (i - j)**2, [4, 4])
-    assert expected == actual
+    assert_array_equal(expected, actual)
 
 
 ## Removing Boundaries
@@ -30,8 +31,8 @@ def test_boundary_cropping():
     actual_a1 = takehome.boundary_cropping(a1, a1 != 0)
     actual_a2 = takehome.boundary_cropping(a2, a2 != 0)
 
-    assert expected_a1 == actual_a1
-    assert expected_a2 == actual_a2
+    assert_array_equal(expected_a1, actual_a1)
+    assert_array_equal(expected_a2, actual_a2)
 
     
 ## Block Reshaping
@@ -41,8 +42,8 @@ def test_boundary_cropping():
 def test_shape_as_blocks():
     arr = np.array([[1,2,3,4], [5,6,7,8], [9,0,1,2]])
     actual = takehome.shape_as_blocks(arr, 2, 2)
-    expected = array([[[[1, 2], [7, 8]], [[3, 4], [9, 0]], [[5, 6], [1, 2]]]])
-    assert expected == actual
+    expected = np.array([[[[1, 2], [7, 8]], [[3, 4], [9, 0]], [[5, 6], [1, 2]]]])
+    assert_array_equal(expected, actual)
 
 
 ## Population Variance from Subpopulation Variance
@@ -64,10 +65,12 @@ def test_pop_var_from_subpop_var():
 
 import random
 
-l = [1,2,3,4,5]
+
 
 def test_shuffle_list_inplace_constant_memory():
-    pass
+    l = [1,2,3,4,5]
+
+    assert set(l) == set(takehome.shuffle_list_inplace_constant_memory(l))
 
 ## Acquiring Coordinates
 

@@ -35,7 +35,12 @@ def create_array_from_function(f, d, dtype=None):
 import numpy as np
 
 def boundary_cropping(a, m):
-    pass
+    valid_coords = np.argwhere(m)
+    begin_coords = valid_coords.min(axis = 0)
+    finish_coords = valid_coords.max(axis = 0) + 1
+    array_slice = tuple(slice(start, end) for (start, end) in zip(begin_coords, finish_coords))
+    return a[array_slice]
+
 
 # a1 = np.array([[0,0,0,0,0], [0,0,0,0,0], [0,1,0,1,1], [0,0,0,0,0]])
 # a2 = np.array([[ [0,0,0], [0,1,0], [0,1,0] ], [ [0,0,0], [0,1,0], [0,0,0] ], [ [0,0,0], [0,1,0], [0,0,0] ]])
@@ -52,7 +57,7 @@ def boundary_cropping(a, m):
 import numpy as np
 
 def shape_as_blocks(a, r, c):
-    pass
+    return np.array([a.reshape(r,-1, c).swapaxes(0,1)])
 
 # arr = np.array([[1,2,3,4], [5,6,7,8], [9,0,1,2]])
 # print(shape_as_blocks(arr, 2, 2))
@@ -86,10 +91,11 @@ def pop_var_from_subpop_var(groups):
 
 import random
 
-l = [1,2,3,4,5]
+# l = [1,2,3,4,5]
 
 def shuffle_list_inplace_constant_memory(l):
-    pass
+    np.random.shuffle(l)
+    return l
 
 
 ## Acquiring Coordinates
