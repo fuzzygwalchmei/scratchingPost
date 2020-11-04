@@ -78,10 +78,16 @@ def shape_as_blocks(a, r, c):
 import numpy as np
 
 def pop_var_from_subpop_var(groups):
-    pass
+    t_pop = [x for y in groups for x in y]
+    t_mean = sum(t_pop)/len(t_pop)
+
+    sub_p_var = [(i-t_mean)**2 for i in t_pop]
+    return sum(sub_p_var)/len(sub_p_var)
+
     
-# groups = [np.array([1,2,3,4]), np.array([5,6])]
-# print(pop_var_from_subpop_var(groups))
+#groups = [np.array([1,2,3,4]), np.array([5,6])]
+#print(pop_var_from_subpop_var(groups))
+# 2.9166666666666665
 
 
 ## Shuffle a Large List
