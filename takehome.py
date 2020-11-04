@@ -100,7 +100,9 @@ import random
 # l = [1,2,3,4,5]
 
 def shuffle_list_inplace_constant_memory(l):
-    np.random.shuffle(l)
+    for i in l:
+        x = random.randrange(i+1)
+        l[i], l[x] = l[x], l[i]
     return l
 
 
