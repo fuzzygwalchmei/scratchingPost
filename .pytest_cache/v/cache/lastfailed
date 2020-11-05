@@ -1,7 +1,0 @@
-{
-  "test_takehome.py::test_boundary_cropping": true,
-  "test_takehome.py::test_coordinates_from_steps": true,
-  "test_takehome.py::test_create_array_from_function": true,
-  "test_takehome.py::test_pop_var_from_subpop_var": true,
-  "test_takehome.py::test_shape_as_blocks": true
-}

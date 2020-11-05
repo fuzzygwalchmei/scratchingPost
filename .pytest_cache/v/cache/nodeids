@@ -1,8 +1,0 @@
-[
-  "test_takehome.py::test_boundary_cropping",
-  "test_takehome.py::test_coordinates_from_steps",
-  "test_takehome.py::test_create_array_from_function",
-  "test_takehome.py::test_pop_var_from_subpop_var",
-  "test_takehome.py::test_shape_as_blocks",
-  "test_takehome.py::test_shuffle_list_inplace_constant_memory"
-]
