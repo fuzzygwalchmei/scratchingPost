@@ -9,7 +9,7 @@ class Deck():
 
         for suit in suits:
             for value,score in zip(values, scores):
-                deck.append(Playing_Card(suit, value, score))
+                self.deck.append(Playing_Card(suit, value, score))
 
 
         
