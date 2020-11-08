@@ -13,6 +13,5 @@ def test_deck_base():
 
 def test_deck_shuffle():
     a = deck_base.Deck()
-    b = a.shuffle()
-
-    assert a != b
+    
+    assert a != a.shuffle()
