@@ -12,4 +12,11 @@ class Deck():
                 self.deck.append(Playing_Card(suit, value, score))
 
 
-        
+    def shuffle(self):
+        from random import randrange
+        d = self.deck
+        l = len(self.deck)
+        for i in range(l-1, 0, -1):
+            x = randrange(l)
+            d[i], d[x] = d[x], d[i]
+

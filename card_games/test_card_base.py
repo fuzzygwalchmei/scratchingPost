@@ -10,3 +10,9 @@ def test_Playing_Card():
 def test_deck_base():
     my_deck = deck_base.Deck()
     assert len(my_deck.deck) == 52
+
+def test_deck_shuffle():
+    a = deck_base.Deck()
+    b = a.shuffle()
+
+    assert a != b
