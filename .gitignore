@@ -2,3 +2,5 @@
 ./scratch
 */__pycache__
 ./pytest_cache/
+.pytest_cache/
+card_games/card_tests/__pycache__/
