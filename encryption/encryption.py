@@ -24,3 +24,8 @@ def word_encrypt(word, shift):
         new_word.append(letter_shift(letter, shift))
     
     return ''.join(new_word)
+
+def sentence_encrypt(sentence, shift):
+    words = sentence.split(' ')
+    shifted_words = [word_encrypt(word, shift) for word in words]
+    return ' '.join(shifted_words)

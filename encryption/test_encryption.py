@@ -1,5 +1,5 @@
 import pytest
-from encryption import letter_shift, word_encrypt
+from encryption import letter_shift, word_encrypt, sentence_encrypt
 
 def test_letter_shift():
     assert letter_shift('a', 2) == 'c'
@@ -15,3 +15,6 @@ def test_word_encrypt():
     assert word_encrypt('maintenance', 27) == 'nbjoufobodf'
     assert word_encrypt('MainTenancE', 27) == 'NbjoUfobodF'
     assert word_encrypt('aB3', 2) == 'cD3'
+
+def test_sentence_encrypt():
+    assert sentence_encrypt('abc def ghi', 2) == 'cde fgh ijk'
