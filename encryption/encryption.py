@@ -29,3 +29,18 @@ def sentence_encrypt(sentence, shift):
     words = sentence.split(' ')
     shifted_words = [word_encrypt(word, shift) for word in words]
     return ' '.join(shifted_words)
+
+def file_encrypt(filename, shift):
+    new_file =[]
+    with open(filename,'r') as f:
+        in_file = f.readlines()
+
+    for line in in_file:
+        new_line = sentence_encrypt(line, shift)
+        new_file.append(new_line)
+
+    with open(f'encrypted_{filename}', 'w') as f:
+        f.writelines(new_file)
+
+
+    

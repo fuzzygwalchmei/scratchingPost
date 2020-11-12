@@ -1,5 +1,7 @@
 import pytest
-from encryption import letter_shift, word_encrypt, sentence_encrypt
+from encryption import letter_shift, word_encrypt, sentence_encrypt, file_encrypt
+import os
+
 
 def test_letter_shift():
     assert letter_shift('a', 2) == 'c'
@@ -18,3 +20,13 @@ def test_word_encrypt():
 
 def test_sentence_encrypt():
     assert sentence_encrypt('abc def ghi', 2) == 'cde fgh ijk'
+
+def test_file_encrypt():
+    file_encrypt('test.txt',3)
+    new_file = 'encrypted_test.txt'
+    assert new_file in os.listdir()
+
+    with open(new_file, 'r') as f:
+        info = f.readlines()
+    assert info[0] == "Wklv lv d vhqwhqfh\n"
+    os.remove(new_file)
