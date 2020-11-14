@@ -1,24 +1,19 @@
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy import Column, Integer, String, create_engine
-from sqlalchemy.ext.declarative import declarative_base
+import sqlalchemy
 
+def get_connection():
+    pass
 
-engine = create_engine('sqlite:///todo.db')
-Session = sessionmaker(bind=engine)
-session = Session()
+def get_all():
+    pass
 
-Base = declarative_base()
+def get_single():
+    pass
 
-class ToDo(Base):
-    __tablename__ = 'todos'
+def add_item():
+    pass
 
-    id = Column(Integer, primary_key=True)
-    subject = Column(String)
-    note = Column(String)
+def update_item():
+    pass
 
-    def __repr__(self):
-        return f'<ToDo(id: {self.id} - note: {self.note}'
-
-
-Base.metadata.create_all(engine)
-session.commit()
+def delete_item():
+    pass
