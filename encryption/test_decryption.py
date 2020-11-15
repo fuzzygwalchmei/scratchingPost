@@ -4,18 +4,15 @@ from encryption import file_encrypt
 import os
 
 
+@pytest.mark.parametrize('string, shift, output',[('cde', 2,'abc'), ('alea', 7,'text'),('nbjoufobodf', 27, 'maintenance'), 
+('NbjoUfobodF', 27, 'MainTenancE'), ('cD3', 2, 'aB3')])
+def test_word_decrypt(string, shift, output):
+    assert word_decrypt(string, shift) == output
 
-def test_word_encrypt():
-    assert word_decrypt('cde', 2) == 'abc'
-    assert word_decrypt('alea', 7) == 'text'
-    assert word_decrypt('nbjoufobodf', 27) == 'maintenance'
-    assert word_decrypt('NbjoUfobodF', 27) == 'MainTenancE'
-    assert word_decrypt('cD3', 2) == 'aB3'
-
-def test_sentence_encrypt():
+def test_sentence_decrypt():
     assert sentence_decrypt('cde fgh ijk', 2) == 'abc def ghi'
 
-def test_file_encrypt():
+def test_file_decrypt():
     file_encrypt('test.txt',3)
     file_decrypt('encrypted_test.txt',3)
     new_file = 'decrypted_test.txt'
