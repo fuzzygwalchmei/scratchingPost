@@ -30,6 +30,11 @@ def all():
     todos = ToDo.query.all()
     return render_template('show_stuff.html', todos = todos)
 
+@app.route('/<id>')
+def single(id):
+    todo = ToDo.query.filter(ToDo.id == id)
+    return render_template('show_stuff.html', todos = todo)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
