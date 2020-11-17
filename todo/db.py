@@ -46,8 +46,9 @@ class TodoAPI(Resource):
         todos = ToDo.query.all()
         return todos_schema.dump(todos)
 
-    def get_single(self, id):
-        pass
+    def get(self, id):
+        todo = ToDo.query.get_or_404(id)
+        return todo_schema.dump(todo)
 
     def post(self):
         new_todo = ToDo(
@@ -65,6 +66,7 @@ class TodoAPI(Resource):
         pass
 
 api.add_resource(TodoAPI, '/todo/api/v1.0/todos', endpoint = 'todos')
+api.add_resource(TodoAPI, '/todo/api/v1.0/todos/<int:id>', endpoint = 'todo')
 
 if __name__ == "__main__":
     app.run(debug=True)
