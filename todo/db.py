@@ -41,14 +41,10 @@ def get_connection():
     pass
 
 
-class TodoAPI(Resource):
+class TodosAPI(Resource):
     def get(self):
         todos = ToDo.query.all()
         return todos_schema.dump(todos)
-
-    def get(self, id):
-        todo = ToDo.query.get_or_404(id)
-        return todo_schema.dump(todo)
 
     def post(self):
         new_todo = ToDo(
@@ -59,13 +55,30 @@ class TodoAPI(Resource):
         db.session.commit()
         return todo_schema.dump(new_todo)
 
-    def update_item(self, id):
-        pass
 
-    def delete_item(self, id):
-        pass
+class TodoAPI(Resource):
 
-api.add_resource(TodoAPI, '/todo/api/v1.0/todos', endpoint = 'todos')
+    def get(self, id):
+        todo = ToDo.query.get_or_404(id)
+        return todo_schema.dump(todo)
+
+    def  patch(self, id):
+        todo = ToDo.query.get_or_404(id)
+
+        if 'subject' in request.json:
+            todo.subject = request.json['subject']
+        if 'note' in request.json:
+            todo.note = request.json['note']
+        db.session.commit()
+        return todo_schema.dump(todo)
+
+    def delete(self, id):
+        todo = ToDo.query.get_or_404(id)
+        db.session.delete(todo)
+        db.session.commit()
+        return '', 204
+
+api.add_resource(TodosAPI, '/todo/api/v1.0/todos', endpoint = 'todos')
 api.add_resource(TodoAPI, '/todo/api/v1.0/todos/<int:id>', endpoint = 'todo')
 
 if __name__ == "__main__":
