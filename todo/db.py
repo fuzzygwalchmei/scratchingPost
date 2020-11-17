@@ -1,8 +1,9 @@
 import sqlalchemy
-from flask import Flask
+from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api, Resource
 from flask_marshmallow import Marshmallow
+
 
 app=Flask(__name__)
 api = Api(app)
@@ -48,8 +49,14 @@ class TodoAPI(Resource):
     def get_single(self, id):
         pass
 
-    def add_item(self, id):
-        pass
+    def post(self):
+        new_todo = ToDo(
+            subject = request.json['subject'],
+            note = request.json['note']
+        )
+        db.session.add(new_todo)
+        db.session.commit()
+        return todo_schema.dump(new_todo)
 
     def update_item(self, id):
         pass
