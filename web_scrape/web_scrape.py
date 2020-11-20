@@ -25,8 +25,7 @@ def get_course_info(link):
     r = requests.get(link)
     page = bs(r.content, features="html.parser")
     course = {}
-    course['title
-    '] = page.find('h1',{'data-purpose':'lead-title'}).text.strip()
+    course['title'] = page.find('h1',{'data-purpose':'lead-title'}).text.strip()
     course['length'] = page.find('span',{'data-purpose':'video-content-length'}).text
     print(course)
     return course
