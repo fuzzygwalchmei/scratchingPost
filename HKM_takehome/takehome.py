@@ -4,6 +4,7 @@ import sys
 from dotenv import load_dotenv
 load_dotenv()
 import os
+import json
 
 
 
@@ -17,7 +18,13 @@ def base_scrape(handle):
     print(f'start: {handle}')
     print(BASE+handle)
     r = requests.get(BASE+handle, headers={'Authorization':f'Bearer {BEARER_TOKEN}'})
-    print(r.content[0])
+
+    page = json.loads(r.content)
+    try:
+        print(page['statuses'][0]['text'])
+    except:
+        print('Nothing in range')
+
     # soup = bs(r.content, features="html.parser")
     # print(soup.find_all('div',attrs={'data-testid':'tweet'}))
 
