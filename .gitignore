@@ -3,3 +3,4 @@ scratch/*
 ./pytest_cache/
 .pytest_cache/
 card_games/card_tests/__pycache__/
+.env
