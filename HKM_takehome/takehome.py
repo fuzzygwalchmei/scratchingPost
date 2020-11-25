@@ -1,23 +1,27 @@
 import requests
 from bs4 import BeautifulSoup as bs
 import sys
-from dotenv import load_dotenv
-load_dotenv()
 import os
 import json
 
 
-
-BASE = 'https://api.twitter.com/1.1/search/tweets.json?q='
+BEARER_TOKEN='AAAAAAAAAAAAAAAAAAAAAM0cKAEAAAAAJEETJhl60ORBX6ShtafU8rsp%2Fqo%3DGD1VotvsfTqdhO5RHKmxCvelprFfIzHcMeaG4qU3KqIq4zD0hG'
+BASE = 'https://api.twitter.com/'
 handle = sys.argv[1]
-BEARER_TOKEN = os.environ.get("BEARER_TOKEN")
+
 
 print(f'Sys.argv: {handle}')
 
+def get_user_id(handle):
+    user = requests.get(BASE+f'2/users/by/username/{handle}', headers={'Authorization':f'Bearer {BEARER_TOKEN}'})
+    user = json.loads(user.content)
+    user_id = user['data']['id']
+    print(user_id)
+
 def base_scrape(handle):
     print(f'start: {handle}')
-    print(BASE+handle)
-    r = requests.get(BASE+handle+'&f=live', headers={'Authorization':f'Bearer {BEARER_TOKEN}'})
+    print(f'{BASE}1.1/search/tweets.json?q={handle}')
+    r = requests.get(f'{BASE}1.1/search/tweets.json?q={handle}', headers={'Authorization':f'Bearer {BEARER_TOKEN}'})
 
     page = json.loads(r.content)
     try:
@@ -26,7 +30,7 @@ def base_scrape(handle):
     except:
         print('Nothing New')
 
-
+get_user_id(handle)
 base_scrape(handle)
 
 # api stream/rules where authorid  == supplied handle?
