@@ -77,3 +77,32 @@ def test_get_box_flat(problem, box, answer):
     test_box = sudoku.get_box(problem, box)
     test_flat = sudoku.get_box_flat(test_box)
     assert test_flat == answer
+
+@pytest.mark.parametrize('box, answer', 
+                        [(1, {(0,0):{1}}),
+                        (5, {(4,3):{8},
+                            (4,4):{8,9}
+                            })])
+def test_get_options(box, answer):
+    problem = [
+            ['.',2,3,4,5,6,7,8,9],
+            [4,5,6,7,'.',9,1,2,3],
+            [7,8,9,1,2,3,4,5,6],
+            [2,3,1,5,6,4,8,9,7],
+            [5,6,4,'.','.',7,2,3,1],
+            [8,9,7,2,3,1,5,6,4],
+            [3,1,2,6,4,5,9,7,8],
+            [6,4,5,9,7,8,3,1,2],
+            [9,7,8,3,1,2,6,4,5]]
+    
+    solution = [[1,2,3,4,5,6,7,8,9],
+            [4,5,6,7,8,9,1,2,3],
+            [7,8,9,1,2,3,4,5,6],
+            [2,3,1,5,6,4,8,9,7],
+            [5,6,4,8,9,7,2,3,1],
+            [8,9,7,2,3,1,5,6,4],
+            [3,1,2,6,4,5,9,7,8],
+            [6,4,5,9,7,8,3,1,2],
+            [9,7,8,3,1,2,6,4,5]]
+    test_opt = sudoku.get_options(problem, box)
+    assert test_opt == answer
