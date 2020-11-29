@@ -6,15 +6,15 @@ start = {
 baseline = {1,2,3,4,5,6,7,8,9}
 
 def solve(problem):
-    solution = [[1,2,3,4,5,6,7,8,9],
-                [4,5,6,7,8,9,1,2,3],
-                [7,8,9,1,2,3,4,5,6],
-                [2,3,1,5,6,4,8,9,7],
-                [5,6,4,8,9,7,2,3,1],
-                [8,9,7,2,3,1,5,6,4],
-                [3,1,2,6,4,5,9,7,8],
-                [6,4,5,9,7,8,3,1,2],
-                [9,7,8,3,1,2,6,4,5]]
+    changed = True
+    working = problem.copy()
+    while changed:
+        changed = False
+        for i in range(1,10):
+            options = get_options(working, i)
+            working, changed = implement_options(working, options, changed)
+            print(changed)
+    solution = working
     return solution
 
 def get_row(problem,row):
@@ -44,12 +44,25 @@ def get_options(problem, box):
         for y in range(3):
             row_num = row_start + x
             col_num = col_start + y
-            row_values = get_row(problem, row_num)
-            col_values = get_column(problem, col_num)
-            box_values = get_box_flat(box)
-            not_taken = baseline.difference(set(row_values+col_values+box_values))
-            if len(not_taken) > 0:
-                options[(row_num,col_num)] = not_taken
+            if problem[row_num][col_num] not in baseline:
+                row_values = get_row(problem, row_num)
+                col_values = get_column(problem, col_num)
+                box_values = get_box_flat(box)
+                not_taken = baseline.difference(set(row_values+col_values+box_values))
+                if len(not_taken) > 0:
+                    options[(row_num,col_num)] = not_taken
     return options
 
+def implement_options(problem, options, changed):
+    for option in options:
+        x, y = option
+        values = list(options[option])
+        print(f"options: {option}")
+        print(f"values: {values}")
+
+        if len(values) == 1:
+            problem[x][y] = values[0]
+            changed = True
+            print(f"x: {x}, y: {y}, values: {values[0]}")
+    return problem, changed
 
