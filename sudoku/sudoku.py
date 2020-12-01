@@ -12,9 +12,9 @@ def solve(problem):
         changed = False
         for i in range(1,10):
             options = get_options(working, i)
-            working, changed = implement_options(working, options, changed)
+            working, changed = implement_options(working, i, options, changed)
             print(changed)
-    solution = working
+    solution = working.copy()
     return solution
 
 def get_row(problem,row):
@@ -53,16 +53,40 @@ def get_options(problem, box):
                     options[(row_num,col_num)] = not_taken
     return options
 
-def implement_options(problem, options, changed):
+def implement_options(problem, box, options, changed):
+    working = problem.copy()
+    x,y = start.get(box)
+    rows = [get_row(problem, i) for i in range(x,x+3)]
+    cols = [get_column(problem, i) for i in range(y, y+3)]
+
     for option in options:
         x, y = option
         values = list(options[option])
         print(f"options: {option}")
         print(f"values: {values}")
 
-        if len(values) == 1:
-            problem[x][y] = values[0]
+        if working[x][y] in baseline:
+            print("Number already filled in")
+        elif len(values) == 1:
+            working[x][y] = values[0]
             changed = True
+            print(f"Inserted {value} in ({x},{y})")
             print(f"x: {x}, y: {y}, values: {values[0]}")
-    return problem, changed
+        elif len(values) > 1:
+            print("Check for possible")
+            other_r = [rows[i] for i in range(3) if i != x%3]
+            other_c = [cols[i] for i in range(3) if i != y%3]
+            other = other_r + other_c
+            for value in values:
+                print(value)
+                print(other)
+                if all([value in group for group in other]):
+                    working[x][y] = values[0]
+                    changed = True
+                    print(f"Inserted {value} in ({x},{y})")
+                    print(f"x: {x}, y: {y}, values: {values[0]}")
+        else:
+            print(f"Couldnt insert {value} in ({x},{y})")
+        
+    return working, changed
 
